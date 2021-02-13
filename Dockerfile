@@ -3,7 +3,7 @@ MAINTAINER Karthikishorejs@gmail.com
 
 RUN apt-get update 
 
-# Define where our application will live inside the image
+# Define where the application will live inside the image
 RUN mkdir -p /var/app
 WORKDIR /var/app
 COPY . .
@@ -12,5 +12,4 @@ COPY . .
 RUN gem install bundler -v 2.2.7
 RUN bundle install
 
-# Add a script to be executed every time the container starts.
 EXPOSE 3000

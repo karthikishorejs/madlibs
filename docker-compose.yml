@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    build: .
+    image:  'madlib:1.0'
+    command: passenger start -p 3000
+    volumes: 
+      - .:/var/app
+    environment:
+      - RAILS_ENV=development
+    ports:
+      - "3000:3000"

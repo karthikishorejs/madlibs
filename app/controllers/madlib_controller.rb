@@ -20,8 +20,9 @@ class MadlibController < ApplicationController
   # Check if a sentence contains at least one adjective, verb, and noun.
   def valid_sentence
     # Scan for ajdective, verb, noun
-    m = @sentence.scan /\{[a-z]*}/
-    m.sort == @match.sort
+    m = @sentence.scan /\{[a-zA-Z]*}/
+    # Case insensitive
+    m.map(&:downcase).sort == @match.map(&:downcase).sort
   end
 
   def construct_connection(word)

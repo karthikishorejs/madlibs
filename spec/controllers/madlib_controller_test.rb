@@ -19,9 +19,9 @@ RSpec.describe MadlibController, type: :controller do
       expect(madlib.valid_sentence).to be false
     end
 
-    it 'case senstivity is not valid' do 
+    it 'case senstivity is valid' do 
       madlib.instance_variable_set(:@sentence, case_senstive_sentence)
-      expect(madlib.valid_sentence).to be false
+      expect(madlib.valid_sentence).to be true
     end
 
     it 'not contain atleast one verb, noun or adjective' do

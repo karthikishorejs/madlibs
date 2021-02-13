@@ -1,19 +1,16 @@
-FROM phusion/passenger-ruby27
+FROM ruby:2.7.2
 MAINTAINER Karthikishorejs@gmail.com
-ENV HOME /root
-ENV RAILS_ENV production
-CMD ["/sbin/my_init"]
 
+RUN apt-get update 
 
-RUN rm -f /etc/service/nginx/down
-RUN rm /etc/nginx/sites-enabled/default
-ADD nginx.conf /etc/nginx/sites-enabled/madlib_website.conf
+# Define where our application will live inside the image
+RUN mkdir -p /var/app
+WORKDIR /var/app
+COPY . .
 
-ADD . /home/app/madlib_website
-WORKDIR /home/app/madlib_website
-RUN chown -R app:app /home/app/madlib_website
-RUN sudo -u app bundle install --deployment
+# Prevent bundler warnings
+RUN gem install bundler -v 2.2.7
+RUN bundle install
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-EXPOSE 80
+# Add a script to be executed every time the container starts.
+EXPOSE 3000
